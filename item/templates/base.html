@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Django Transaction task{% endblock %}</title>
+    {% if user.is_authenticated %} 
+        Hi {{ user.username }}! 
+        <p><a href="{% url 'logout' %}">Log Out</a></p>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">Log In</a> 
+        <a href="{% url 'signup' %}">Sign Up</a> 
+
+    {% endif %}
+</head>
+
+<body>
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<h1>Order List</h1>
+
+{% if not data %}
+<p>There are no products ordered.</p>
+{% endif %} {% for order in data %}
+<p>
+    <strong>Ordering Date:</strong> {{ order.created_at }}
+</p>
+
+<table border=1>
+    <thead>
+        <tr>
+            <td width=100px>trade (brand) name</td>
+            <td>number ordered</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ordered_list in order.ordered_lists %} {% if ordered_list.quantity != 0 %}
+        <tr>
+            <td>
+                {{ ordered_list.items }}
+            </td>
+            <td>
+                {{ ordered_list.quantity }}
+            </td>
+        </tr>
+        {% endif %} {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
