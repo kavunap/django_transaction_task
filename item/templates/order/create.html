@@ -1,0 +1,25 @@
+<h1>Order Registration</h1>
+
+<form action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+  <table border=1>
+    <thead>
+      <tr>
+        <td>trade (brand) name</td>
+        <td>number ordered</td>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td><input type="number" name="quantity" min="0" max="10" default="0"></td>
+        </tr>
+        <input type="hidden" name="item_id" value=item.id>
+      {% endfor %}
+    </tbody>
+  </table>
+  <input type="submit" value="Send order">
+
+</form>
+

@@ -23,6 +23,12 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def update_total_quantity(self):
+        for line_item in self.OrderedList:
+            item = Item.objects.get(id= line_item.item_id)
+            item.total_quantity += line_item.quantity
+            item.save()
+
 class OrderedList(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE,related_name="ordered_lists")
     item = models.ForeignKey(Item, on_delete=models.CASCADE,related_name="ordered_lists")

@@ -4,7 +4,7 @@
 <p>There are no products ordered.</p>
 {% endif %} {% for order in data %}
 <p>
-    <strong>Ordering Date:</strong> {{ order.created_at }}
+    <strong>Ordering Date:</strong> {{ order.created_at.strftime }}
 </p>
 
 <table border=1>

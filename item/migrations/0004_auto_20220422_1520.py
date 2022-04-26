@@ -2,12 +2,13 @@
 
 from django.db import migrations
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 def create_data(apps, schema_editor):
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
-    User.objects.create(username= "admin", email= "admin@gmail.com", password= "password", is_superuser= True)
-    User.objects.create(username= "user", email= "user@gmail.com", password= "password")
+    User.objects.create(username= "admin", email= "admin@gmail.com", password=make_password("password",hasher='default'), is_superuser= True)
+    User.objects.create(username= "user", email= "user@gmail.com", password= make_password("password",hasher='default'))
     Item = apps.get_model('item', 'Item')
     items = ["鶏肉","牛肉","豚肉","じゃがいも","人参","キャベツ","白菜","なす","玉ねぎ","塩","サラダ油"]
     # items = ["chicken", "beef", "pork", "potatoes", "carrots", "cabbage", "Chinese cabbage", "eggplant", "onions", "salt", "salad oil"]

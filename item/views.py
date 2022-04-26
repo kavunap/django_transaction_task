@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from .forms import OrderForm
 
 # from .forms import SchoolForm
 
@@ -43,3 +44,23 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+def create_order(request):
+
+    if (request.method == 'POST'):
+        current_user=request.user
+        item_id = request.POST['item_id']
+        quantity = request.POST['quantity']
+        obj = current_user.orders.create(item_id=item_id)
+        
+        # order = OrderForm(request.POST, instance=obj)
+        # order.save()
+        return redirect('orders')
+    else:
+        items=Item.objects.all().order_by('created_at')
+        params = {
+            'form': OrderForm(),
+            'items': items
+        }
+        return render(request, 'order/create.html', params)
